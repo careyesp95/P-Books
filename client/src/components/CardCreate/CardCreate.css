@@ -1,0 +1,8 @@
+.containerCreate{
+    background-image: url("../../assets/fondo.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    height:700px;
+    background-attachment: fixed;
+    background-size:cover;
+}
