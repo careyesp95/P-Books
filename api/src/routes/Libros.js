@@ -6,12 +6,13 @@ const {getAllLibros} = require('../controllers');
 const app = express.Router()
 
 app.get('/libro-name', async (req,res,next) => {
-    const {name} = req.query;
+    let {name} = req.query;
+    if(!name) name = 'harry potter';
     try{
         let getlibro = await getAllLibros(name);
         if(name){
             let libroFilter = await getlibro.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
-            libroFilter.length > 0 ? 
+            libroFilter.length > 0 ?
             res.status(200).json(libroFilter):
             res.status(404).send({message:'No esta el libro seleccionado' + ' ' + name})
         }else {
@@ -53,7 +54,7 @@ app.post('/crear/libro', async (req,res, next) => {
                 image,
                 description,
                 publisher,
-                publishedDate:parseInt(publishedDate),
+                publishedDate,
                 
             });
             let categoria = await Categorias.findAll({where: {name:categorias}})

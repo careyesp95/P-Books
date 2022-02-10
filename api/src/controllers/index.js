@@ -1,39 +1,36 @@
 const {Libros, Categorias} = require('../db');
 const axios = require('axios')
 
-const getAllLibros = (name) => {
+const getAllLibros = async (name) => {
     let librosdbPromise = Libros.findAll({
         include:Categorias,
     })
-    if(!name){
-        name = 'harry potter'
-    }
-    let librosApipromise = axios.get('https://www.googleapis.com/books/v1/volumes?q=name') 
-
+    let librosApipromise = await axios.get('https://www.googleapis.com/books/v1/volumes?q='+ name);
+    librosApipromise = librosApipromise.data.items 
     return Promise.all([
         librosdbPromise,
-        librosApipromise
+        librosApipromise,
     ]).then(response => {
         let libroDB = response[0];
-        let libroApi = response[1].data;
+        let libroApi = response[1];
         libroApi = libroApi.map(e => {
             return{
-                id:e.items.id,
-                name:e.items.title,
-                autor:e.items.authors,
-                categorias:e.items.categories,
-                publishedDate:e.items.publishedDate,
-                publisherr:e.items.publisher,
-                description:e.items.description,
-                imagen:e.items.imageLinks.thumbnail
+                id:e.id,
+                name:e.volumeInfo.title,
+                autor:e.volumeInfo.authors,
+                categorias:e.categories,
+                publishedDate:e.volumeInfo.publishedDate,
+                publisher:e.volumeInfo.publisher,
+                description:e.volumeInfo.description,
+                imagen:e.volumeInfo.imageLinks,
             }
         })
         libroDB = libroDB.map(e => {
             return {
                 id:e.id,
                 name:e.name,
-                fecha:e.publishedDate,
-                editor:e.publisher,
+                publishedDate:e.publishedDate, // fecha
+                publisher:e.publisher, // editor
                 image:e.image,
                 description:e.description,
                 categorias:e.categorias.map(e => {

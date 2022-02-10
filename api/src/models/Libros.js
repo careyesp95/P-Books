@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       allowNull:false,
     },
     publishedDate:{ 
-      type: DataTypes.NUMBER
+      type: DataTypes.STRING,
     },
     publisher:{
       type: DataTypes.STRING,
