@@ -2,6 +2,7 @@ const {Libros, Categorias} = require('../db');
 const axios = require('axios')
 
 const getAllLibros = async (name) => {
+    if(!name) name = 'harry potter';
     let librosdbPromise = Libros.findAll({
         include:Categorias,
     })
@@ -32,20 +33,10 @@ const getAllLibros = async (name) => {
                 name:e.name,
                 publishedDate:e.publishedDate, // fecha
                 publisher:e.publisher, // editor
-                image:e.image,
+                imagen:{thumbnail:e.image},
                 description:e.description,
-                categorias:e.categorias.map(e => {
-                    return{
-                        id:e.id,
-                        name:e.name,
-                    }
-                }),
-                autores:e.autores.map(e => {
-                    return{
-                        id:e.id,
-                        name:e.name,
-                    }
-                }),
+                autor:e.autor,
+                categorias:e.categorias.map(e => e.name),
             }
         })
         let alllibros = [...libroDB,...libroApi]

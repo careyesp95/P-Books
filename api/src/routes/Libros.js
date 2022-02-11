@@ -7,15 +7,14 @@ const axios = require('axios');
 const app = express.Router()
 
 app.get('/libro-name', async (req,res,next) => {
-    let {name} = req.query;
-    if(!name) name = 'harry potter';
+    const {name} = req.query;
     try{
         let getlibro = await getAllLibros(name);
         if(name){
             let libroFilter = await getlibro.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
             libroFilter.length > 0 ?
             res.status(200).json(libroFilter):
-            res.status(404).send({message:'No esta el libro seleccionado' + ' ' + name})
+            res.status(404).send({message:'Puedes crear el libro' + ' ' + name})
         }else {
             res.status(200).json(getlibro);
         } 
@@ -59,23 +58,19 @@ app.post('/crear/libro', async (req,res, next) => {
     try{
         const imageDefault = 'https://dlprivateserver.com/wp-content/uploads/2020/09/1599056683_6-cosas-que-debes-saber-antes-de-comprar-Marvel39s-Avengers-780x470.jpg';
         
-            let {name,image, description, publishedDate, publisher, categorias, autores } = req.body;
-
+            let {name,image, description, publishedDate, publisher, categorias, autor } = req.body;
             if(!image) image = imageDefault;
             if(!name || !description || !publishedDate || !publisher) return res.json({message:'Los campos son requeridos, por favor ingresar los datos completos...'})
             let libro = await Libros.create({
                 name,
                 image,
                 description,
+                autor,
                 publisher,
                 publishedDate,
-                
             });
             let categoria = await Categorias.findAll({where: {name:categorias}})
             await libro.addCategorias(categoria)
-            let autor = await Autores.findAll({where:{name:autores}})
-            await libro.addAutores(autor)
-    
             res.status(200).send(categoria)
     }catch(err){
         next(err)

@@ -4,7 +4,7 @@ const { conn, Categorias, Autores } = require('./src/db.js');
 
 // precargaro la base de datos con los tipos de categorias de los libros
 let categorias = ['Acción','Aventuras','Ciencia Ficción','Comedia','Drama','Terror','Fantasía','Musical','Suspenso','Animada']
-let autores = ['Carlos Andres','Miguel Servantes']
+let autores = ['J. K. Rowling','Miguel Servantes']
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
