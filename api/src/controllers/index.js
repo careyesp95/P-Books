@@ -18,11 +18,12 @@ const getAllLibros = async (name) => {
                 id:e.id,
                 name:e.volumeInfo.title,
                 autor:e.volumeInfo.authors,
-                categorias:e.categories,
+                categorias:e.volumeInfo.categories,
                 publishedDate:e.volumeInfo.publishedDate,
                 publisher:e.volumeInfo.publisher,
                 description:e.volumeInfo.description,
                 imagen:e.volumeInfo.imageLinks,
+                selfLink:e.selfLink,
             }
         })
         libroDB = libroDB.map(e => {

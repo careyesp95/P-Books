@@ -1,6 +1,7 @@
 const express = require('express');
 const {Libros, Categorias, Autores} = require('../db');
 const {getAllLibros} = require('../controllers');
+const axios = require('axios');
 
 
 const app = express.Router()
@@ -27,12 +28,25 @@ app.get('/libro/:id', async (req,res,next) => {
     try{
         const {id} = req.params;
         if(!id) return next({mesagge:'No ingresaste un id correcto'})
-        
         if(typeof id === 'string' && id.length > 20){
             let findById = await Libros.findByPk(id, {
                 include:Categorias
             });
             return res.json(findById)
+        }else {
+            
+            let getByIdApi = await axios.get('https://www.googleapis.com/books/v1/volumes/' + id)
+            let findByIdAPI = {
+                id:getByIdApi.data.id,
+                name:getByIdApi.data.volumeInfo.title,
+                autor:getByIdApi.data.volumeInfo.authors,
+                categorias:getByIdApi.data.volumeInfo.categories,
+                publishedDate:getByIdApi.data.volumeInfo.publishedDate,
+                publisher:getByIdApi.data.volumeInfo.publisher,
+                description:getByIdApi.data.volumeInfo.description,
+                imagen:getByIdApi.data.volumeInfo.imageLinks,
+            }
+            return res.status(200).json(findByIdAPI);
         }
     }catch(err){
         next(err)
