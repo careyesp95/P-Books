@@ -4,6 +4,7 @@ import {
     GET_LIBRO_NAME,
     GET_LIBRO_DETAIL,
     FILTER_BY_ORDER,
+    FILTER_BY_CREATE,
     FILTER_BY_CATEGORIAS,
     CREATE_LIBRO,
     CLEAR_ALL,
@@ -75,6 +76,20 @@ function reducer(state=initialState,action) {
                 }
                 return 0;
             })
+            case FILTER_BY_CREATE:
+                let dataRender;
+                if(action.payload === 'creado'){
+                    dataRender = state.allLibrosAux.filter(e => e.id.toString().length > 20)
+                }else if(action.payload === 'api'){
+                    dataRender = state.allLibrosAux.filter(e => e.id.toString().length < 20)
+                }else {
+                    dataRender = state.allLibrosAux
+                }
+                return {
+                    ...state,
+                    allLibros: dataRender
+
+                }
             return {
                 ...state,
                 allLibros:sortedOrder,

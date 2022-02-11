@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {
     CardImage,
-    CardRecipe,
+    CardLibro,
     Title,
     H3,
     Image,
@@ -10,17 +10,18 @@ import {
 
 
 function Card(props) {
-    const {name,image,categorias,id} = props;
+    const {name,image,categorias,id, publishedDate} = props;
     return (
-            <CardRecipe>
+            <CardLibro>
                 <H3>{name}</H3>
                 <CardImage>
                     <Link to={`/home/detail/${id}`}>
                         <Image src={image} alt='Cargando...'  />
                     </Link>
                 </CardImage>
-                <Title>Categoria(s): {categorias?.map((e,i) => <p key={i}>{e.name}</p>)}</Title>
-            </CardRecipe>
+                <Title>Categoria(s): {categorias?.map((e,i) => <p key={i}>{e}</p>)}</Title>
+                <Title>Fecha Publicacion: {publishedDate}</Title>
+            </CardLibro>
     )
 }
 

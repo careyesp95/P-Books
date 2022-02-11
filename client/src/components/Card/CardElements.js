@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const CardRecipe = styled.div`
+export const CardLibro = styled.div`
     width:420px; 
     height:420px;
     margin:50px;

@@ -4,6 +4,7 @@ import {
     GET_LIBRO_NAME,
     GET_LIBRO_DETAIL,
     FILTER_BY_ORDER,
+    FILTER_BY_CREATE,
     FILTER_BY_CATEGORIAS,
     CREATE_LIBRO,
     CLEAR_ALL,
@@ -13,7 +14,7 @@ import axios from 'axios';
 
 export const getLibroAll = function(){
     return function(dispatch){
-        return axios.get('/api/libro-name')
+        return axios.get('http://localhost:3001/api/libro-name')
         .then(response => {
             dispatch({
                 type: GET_LIBRO_ALL,
@@ -28,7 +29,7 @@ export const getLibroAll = function(){
 
 export const getCategoriasAll = function(){
     return function(dispatch){
-        return axios.get('/api/categoria')
+        return axios.get('http://localhost:3001/api/categoria')
         .then(response => {
             if(response.data !== undefined){
                 dispatch({
@@ -45,7 +46,7 @@ export const getCategoriasAll = function(){
 
 export const getLibroName = function(name){
     return function(dispatch){
-        return axios.get('/api/libro-name?name=' + name)
+        return axios.get('http://localhost:3001/api/libro-name?name=' + name)
         .then(response => {
             dispatch({
                 type:GET_LIBRO_NAME,
@@ -61,7 +62,7 @@ export const getLibroName = function(name){
 
 export const getLibroDetail = function(id){
     return function(dispatch){
-        return axios.get(`/api/libro/${id}`)
+        return axios.get(`http://localhost:3001/api/libro/${id}`)
         .then(response => {
             dispatch({
                 type: GET_LIBRO_DETAIL,
@@ -74,9 +75,9 @@ export const getLibroDetail = function(id){
     }
 }
 
-export const createLIBRO = function(data){
+export const createLibro = function(data){
     return function(dispatch){
-        return axios.post('/api/crear/libro',data)
+        return axios.post('http://localhost:3001/api/crear/libro',data)
         .then(response => {
             dispatch({
                 type:CREATE_LIBRO,
@@ -99,6 +100,13 @@ export const filterByOrder = function(status){
 export const filterByCategorias = function(status){
     return {
         type:FILTER_BY_CATEGORIAS,
+        payload:status
+    }
+}
+
+export const filterByCreate = function(status){
+    return{
+        type:FILTER_BY_CREATE,
         payload:status
     }
 }

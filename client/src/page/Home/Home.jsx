@@ -6,6 +6,7 @@ import Paginado from '../../components/Paginado/Paginado.jsx';
 import {
     filterByOrder,
     filterByCategorias,
+    filterByCreate,
     getCategoriasAll,
     getLibroAll,
     }from '../../actions/index';
@@ -19,9 +20,10 @@ function Home() {
     const dispatch = useDispatch();
 
     const [orden,setOrden] = useState('');
+    const [dataBase, setDataBase] = useState('');
     const [categorias,setCategorias] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
-    const [libro,setLibro] = useState(6);
+    const [libro,setLibro] = useState(7);
     const indexOfLastLibro = currentPage * libro;
     const indexOfFirstLibro = indexOfLastLibro - libro;
     const currentLibros = stateLibros?.slice(indexOfFirstLibro,indexOfLastLibro)
@@ -41,6 +43,12 @@ function Home() {
         setOrden( e.target.value)
         
     } 
+
+    function handleFilterCreate(e){
+        e.preventDefault();
+        dispatch(filterByCreate(e.target.value));
+        setDataBase(e.target.value)
+    }
 
 
    function handleFilterCategorias (e){
@@ -67,6 +75,11 @@ function Home() {
                         <option  value='asc'>Order A-Z</option>
                         <option  value='desc'>Order Z-A</option>
                 </select>
+                <select className='containerOption' name='dataBase' value={dataBase} onChange={handleFilterCreate}>
+                    <option value='all'>All</option>
+                    <option value='creado'>DB</option>
+                    <option value='api'>API</option>
+                </select>
                 <select className='containerOption' name='categorias' value={categorias} onChange={e => handleFilterCategorias(e)}>
                     {
                         stateCategorias?.map(elem => (
@@ -90,8 +103,9 @@ function Home() {
                         key={elem.id}
                         id={elem.id}
                         name={elem.name}
-                        image={elem.image}
+                        image={elem.imagen?.thumbnail}
                         categorias={elem.categorias}
+                        publishedDate={elem.publishedDate}
                         />
                     })
                 }

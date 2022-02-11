@@ -25,7 +25,7 @@ function CardDetail({name,image,categorias,description}) {
                         <CardImage>
                             <Image src={image} alt='Cargando...'  />
                         </CardImage>
-                        <Categorias>Categoria(s): {categorias?.map((e,i) => <p key={i}>{e.name}</p>)}</Categorias>
+                        <Categorias>Categoria(s): {categorias?.map((e,i) => <p key={i}>{e}</p>)}</Categorias>
                     </div>
                     <div className='atras'>
                         <TitleDescription >Description:{description}</TitleDescription >

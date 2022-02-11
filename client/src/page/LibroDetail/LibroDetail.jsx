@@ -23,7 +23,7 @@ function LibroDetail() {
                 ) :(
                     <CardDetail
                     name={libroDetailById.name}
-                    image={libroDetailById.image}
+                    image={libroDetailById.imagen.thumbnail}
                     description={libroDetailById.description}
                     categorias={libroDetailById.categorias}  
                     />
