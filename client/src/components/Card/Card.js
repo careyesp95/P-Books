@@ -10,7 +10,7 @@ import {
 
 
 function Card(props) {
-    const {name,image,categorias,id, publishedDate} = props;
+    const {name,image,categorias,id, publishedDate, publisher} = props;
     return (
             <CardLibro>
                 <H3>{name}</H3>
@@ -21,6 +21,7 @@ function Card(props) {
                 </CardImage>
                 <Title>Categoria(s): {categorias?.map((e,i) => <p key={i}>{e}</p>)}</Title>
                 <Title>Fecha Publicacion: {publishedDate}</Title>
+                <Title>Editor: {publisher}</Title>
             </CardLibro>
     )
 }

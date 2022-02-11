@@ -50,13 +50,6 @@ function Home() {
         setDataBase(e.target.value)
     }
 
-
-   function handleFilterCategorias (e){
-        e.preventDefault();
-        dispatch(filterByCategorias(e.target.value))
-        setCategorias(e.target.value)
-   }
-
    function clearFilter (e){
        e.preventDefault();
        setOrden('selec')
@@ -80,13 +73,7 @@ function Home() {
                     <option value='creado'>DB</option>
                     <option value='api'>API</option>
                 </select>
-                <select className='containerOption' name='categorias' value={categorias} onChange={e => handleFilterCategorias(e)}>
-                    {
-                        stateCategorias?.map(elem => (
-                            <option key={elem.id}value={elem.name} >{elem.name}</option>
-                        ))
-                    }
-                </select>
+
                 <ButtonClear onClick={clearFilter}>Clear</ButtonClear>
             </div> 
             <Paginado 
@@ -106,6 +93,7 @@ function Home() {
                         image={elem.imagen?.thumbnail}
                         categorias={elem.categorias}
                         publishedDate={elem.publishedDate}
+                        publisher={elem?.publisher}
                         />
                     })
                 }
