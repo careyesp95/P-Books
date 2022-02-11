@@ -11,7 +11,7 @@ import {
 import './CardDetail.css';
 
 
-function CardDetail({name,image,categorias,description}) {
+function CardDetail({name,image,description}) {
     
     return (
         <div className ='wrap'>       
@@ -25,7 +25,6 @@ function CardDetail({name,image,categorias,description}) {
                         <CardImage>
                             <Image src={image} alt='Cargando...'  />
                         </CardImage>
-                        <Categorias>Categoria(s): {categorias?.map((e,i) => <p key={i}>{e}</p>)}</Categorias>
                     </div>
                     <div className='atras'>
                         <TitleDescription >Description:{description}</TitleDescription >

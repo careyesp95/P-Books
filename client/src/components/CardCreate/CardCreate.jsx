@@ -35,10 +35,12 @@ function CardCreate() {
     //{name,image, categorias, description, duration}
     const [state, setState] = useState({
         name:'',
+        publishedDate:'',
+        publisher:'',
         description:'',
-        duration:'',
         image:'',
         categorias:[],
+        autores:[],
     })
 
     useEffect(()=> {
@@ -74,10 +76,10 @@ function CardCreate() {
         })
 
     }
-
+    
     function onHandleSubmit(e){
         e.preventDefault();
-        if(errors.hasOwnProperty('name')  || errors.hasOwnProperty('description') || errors.hasOwnProperty('duration') ){
+        if(errors.hasOwnProperty('name')  || errors.hasOwnProperty('description') || errors.hasOwnProperty('publisher') || errors.hasOwnProperty('publishedDate')){
             setFormularioValido(false);
         }else{
             setFormularioValido(true);
@@ -85,10 +87,12 @@ function CardCreate() {
             alert(`Libro ${state.name} creada con exito!`)
             setState({
                 name:'',
+                publishedDate:'',
+                publisher:'',
                 description:'',
-                duration:'',
                 image:'',
                 categorias:[],
+                autores:[],
             })
             dispatch(getLibroAll());
             history.push('/')
@@ -138,22 +142,42 @@ function CardCreate() {
                         }
                     </div>
                     <div>
-                        <Label htmlFor='duration' valido={errors.duration}>duration*:</Label>
+                        <Label htmlFor='publishedDate' valido={errors.publishedDate}>Fecha de Publicación*:</Label>
                         <InputContainer>
                             <Input
                             type='number'
-                            placeholder='duration...'
-                            id='duration'
-                            value={state.duration}
-                            name='duration'
+                            placeholder='Fecha de Publicacion...'
+                            id='publishedDate'
+                            value={state.publishedDate}
+                            name='publishedDate'
                             onChange={onHandleChange}
-                            valido={errors.duration}
+                            valido={errors.publishedDate}
                             />
                         
                         </InputContainer>
                         {
-                            errors.duration && (
-                                <StylError valido={errors.duration}>{errors.duration}</StylError>
+                            errors.publishedDate && (
+                                <StylError valido={errors.publishedDate}>{errors.publishedDate}</StylError>
+                            )
+                        }
+                    </div>
+                    <div>
+                        <Label htmlFor='publisher' valido={errors.publisher}>Autor*:</Label>
+                        <InputContainer>
+                            <Input
+                            type='text'
+                            placeholder='autor...'
+                            id='publisher'
+                            value={state.publisher}
+                            name='publisher'
+                            onChange={onHandleChange}
+                            valido={errors.publisher}
+                            />
+                        
+                        </InputContainer>
+                        {
+                            errors.publisher && (
+                                <StylError valido={errors.publisher}>{errors.publisher}</StylError>
                             )
                         }
                     </div>

@@ -23,9 +23,8 @@ function LibroDetail() {
                 ) :(
                     <CardDetail
                     name={libroDetailById.name}
-                    image={libroDetailById.imagen.thumbnail}
-                    description={libroDetailById.description}
-                    categorias={libroDetailById.categorias}  
+                    image={libroDetailById.imagen?.thumbnail }
+                    description={libroDetailById.description}  
                     />
                 )
             }
